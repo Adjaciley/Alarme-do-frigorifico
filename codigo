@@ -1,0 +1,29 @@
+int botao = 3;
+int buzzer = 4;
+
+bool estavaPressionado = false;
+
+void setup() {
+  pinMode(botao, INPUT_PULLUP);
+  pinMode(buzzer, OUTPUT);
+
+  tone(buzzer, 7000); // buzzer começa ligado
+}
+
+void loop() {
+  int leituraBtn = digitalRead(botao);
+
+  // BOTÃO PRESSIONADO
+  if (leituraBtn == LOW) {
+    noTone(buzzer);
+    estavaPressionado = true;
+  }
+  // BOTÃO SOLTO
+  else {
+    if (estavaPressionado) {
+      delay(10000);        // espera 10 segundos
+      tone(buzzer, 7000);  // liga buzzer
+      estavaPressionado = false;
+    }
+  }
+}
